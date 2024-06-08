@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile Web Desktop</title>
     <style>
+        @font-face {
+            font-family: 'Ddraig Sans';
+            src: url(https://delivercdn.pages.dev/barclay/fonts/DdraigSans.ttf);
+        }
+
         body, html {
             margin: 0;
             padding: 0;
@@ -15,8 +20,9 @@
             justify-content: center;
             align-items: center;
             background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            font-family: 'Ddraig Sans', Arial, sans-serif;
         }
+
         .desktop {
             position: relative;
             width: 100%;
@@ -31,10 +37,11 @@
             align-content: flex-start;
             align-items: center;
         }
+
         .app {
             width: 70px;
             height: 70px;
-            margin: 10px 10px; /* Updated margin */
+            margin: 10px 10px;
             background-color: white;
             border-radius: 10px;
             display: flex;
@@ -45,14 +52,17 @@
             text-align: center;
             cursor: pointer;
         }
+
         .app img {
             width: 40px;
             height: 40px;
         }
+
         .app p {
             margin: 5px 0 0 0;
             font-size: 12px;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -66,6 +76,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .modal-content {
             background-color: white;
             padding: 0;
@@ -78,6 +89,7 @@
             display: flex;
             flex-direction: column;
         }
+
         .modal-header {
             background-color: #4CAF50;
             color: white;
@@ -89,6 +101,7 @@
             align-items: center;
             position: relative;
         }
+
         .modal-header .close {
             position: absolute;
             right: 10px;
@@ -97,17 +110,20 @@
             font-size: 28px;
             cursor: pointer;
         }
+
         .modal-body {
             flex: 1;
             padding: 0;
             overflow: hidden;
         }
+
         .modal iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
-        img {
+
+        .appIcon {
             width: 40px;
             height: 40px;
         }
@@ -117,86 +133,90 @@
 <body>
 
 <div class="desktop">
+    <div class="app" onclick="openApp('Search', 'https://caesium.pages.dev/apps/search', true)">
+        <img class="appIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/search.png" alt="Search">
+        <p>Search</p>
+    </div>
     <div class="app" onclick="openApp('Audio Editor', 'https://webcomposer.pages.dev/', true)">
-        <img src="https://delivercdn.pages.dev/barclay/images/caesium/audio.png" alt="Audio Editor">
+        <img class="appIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/audio.png" alt="Audio Editor">
         <p>Audio Editor</p>
     </div>
     <div class="app" onclick="openApp('Browser', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Browser">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Browser">
         <p>Browser</p>
     </div>
     <div class="app" onclick="openApp('Calendar', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Calendar">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Calendar">
         <p>Calendar</p>
     </div>
     <div class="app" onclick="openApp('Camera', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Camera">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Camera">
         <p>Camera</p>
     </div>
     <div class="app" onclick="openApp('Canvas', 'https://caesium.pages.dev/apps/canvas', true)">
-        <img src="https://delivercdn.pages.dev/barclay/images/caesium/canvas.png" alt="Canvas">
+        <img class="appIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/canvas.png" alt="Canvas">
         <p>Canvas</p>
     </div>
     <div class="app" onclick="openApp('Code Editor', 'https://htmstorm.pages.dev/', true)">
-        <img src="https://delivercdn.pages.dev/barclay/images/caesium/html.png" alt="Code Editor">
+        <img class="appIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/html.png" alt="Code Editor">
         <p>Code Editor</p>
     </div>
     <div class="app" onclick="openApp('Drive', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Drive">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Drive">
         <p>Drive</p>
     </div>
     <div class="app" onclick="openApp('Explore', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Explore">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Explore">
         <p>Explore</p>
     </div>
     <div class="app" onclick="openApp('Files', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Files">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Files">
         <p>Files</p>
     </div>
     <div class="app" onclick="openApp('Gallery', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Gallery">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Gallery">
         <p>Gallery</p>
     </div>
     <div class="app" onclick="openApp('Mail', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Mail">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Mail">
         <p>Mail</p>
     </div>
     <div class="app" onclick="openApp('Notes', 'https://caesium.pages.dev/apps/notes', true)">
-        <img src="https://delivercdn.pages.dev/barclay/images/caesium/text.png" alt="Notes">
+        <img class="appIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/text.png" alt="Notes">
         <p>Notes</p>
     </div>
     <div class="app" onclick="openApp('Print', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Print">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Print">
         <p>Print</p>
     </div>
     <div class="app" onclick="openApp('Scan', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Scan">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Scan">
         <p>Scan</p>
     </div>
     <div class="app" onclick="openApp('Screencast', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Screencast">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Screencast">
         <p>Screencast</p>
     </div>
     <div class="app" onclick="openApp('Settings', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="Settings">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="Settings">
         <p>Settings</p>
     </div>
     <div class="app" onclick="openApp('Terminal', 'https://caesium.pages.dev/apps/terminal', true)">
-        <img src="https://delivercdn.pages.dev/barclay/images/caesium/terminal.png" alt="Terminal">
+        <img class="appIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/terminal.png" alt="Terminal">
         <p>Terminal</p>
     </div>
     <div class="app" onclick="openApp('Video Editor', 'https://openingnight.pages.dev', true)">
-        <img src="https://delivercdn.pages.dev/barclay/images/caesium/video.png" alt="Video Editor">
+        <img class="appIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/video.png" alt="Video Editor">
         <p>Video Editor</p>
     </div>
     <div class="app" onclick="openApp('YouTube', 'https://www.dailymotion.com', true)">
-        <img src="https://via.placeholder.com/40" alt="YouTube">
+        <img class="appIcon" src="https://via.placeholder.com/40" alt="YouTube">
         <p>YouTube</p>
     </div>
 
-    <div class="app" onclick="openApp('App 1', 'This is App 1 content.')">
-        <img src="https://via.placeholder.com/40" alt="App 1">
-        <p>App 1</p>
+    <div class="app" onclick="openApp('Welcome', 'This is App 1 content.')">
+        <img src="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" alt="Welcome">
+        <p>AWelcome</p>
     </div>
 </div>
 

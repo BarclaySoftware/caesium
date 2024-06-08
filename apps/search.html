@@ -6,82 +6,161 @@
     <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/search.png" sizes="30x30">
     <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/search.png" sizes="600x600">
     <title>Barclay Search</title>
+    <style>
+        @font-face {
+            font-family: 'Ddraig Sans';
+            src: url(https://delivercdn.pages.dev/barclay/fonts/DdraigSans.ttf);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Ddraig Sans Bold';
+            src: url(https://delivercdn.pages.dev/barclay/fonts/DdraigSans-Bold.ttf);
+            font-weight: 700;
+        }
+
+        body {
+            font-family: 'Ddraig Sans', Arial, sans-serif;
+            background-color: #ececf2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-family: 'Ddraig Sans Bold', Arial, sans-serif;
+            text-align: center;
+            color: #333;
+        }
+
+        #search-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        #search-form input[type="text"] {
+            font-family: 'Ddraig Sans', Arial, sans-serif;
+            font-size: 16px;
+            width: 80%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #8b8b97;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #search-form input[type="text"]:focus {
+            border-color: #1f69ff;
+        }
+
+        #search-form button {
+            font-family: 'Ddraig Sans Bold', Arial, sans-serif;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #1f69ff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #search-form button:hover {
+            background-color: #1f69ff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #search-form button:active {
+            background-color: #1f69ff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #8b8b97;
+        }
+
+        .result-item h3 {
+            margin: 0;
+        }
+
+        .result-item a {
+            font-family: 'Ddraig Sans Bold', Arial, sans-serif;
+            color: #1f69ff;
+            text-decoration: none;
+        }
+
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+
+        .result-item p {
+            margin: 10px 0 0;
+        }
+
+        .result-url {
+            font-family: 'Ddraig Sans', Arial, sans-serif;
+            font-size: 14px;
+            color: #006621;
+            word-break: break-all;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            font-family: 'Ddraig Sans', Arial, sans-serif;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            background: #333;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .pagination button:disabled {
+            background: #8b8b97;
+            cursor: not-allowed;
+        }
+
+        .total-results {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
 </head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-
-    .container {
-        width: 80%;
-        margin: auto;
-        overflow: hidden;
-        padding: 20px;
-        background: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-        text-align: center;
-        color: #333;
-    }
-
-    #search-form {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    #search-form input[type="text"] {
-        width: 80%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #search-form button {
-        padding: 10px 20px;
-        border: none;
-        background: #333;
-        color: #fff;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-    #search-form button:hover {
-        background: #555;
-    }
-
-    #results {
-        margin-top: 20px;
-    }
-
-    .result-item {
-        margin-bottom: 20px;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .result-item h3 {
-        margin: 0;
-    }
-
-    .result-item a {
-        color: #0066cc;
-        text-decoration: none;
-    }
-
-    .result-item a:hover {
-        text-decoration: underline;
-    }
-
-    .result-item p {
-        margin: 10px 0 0;
-    }
-</style>
 <body>
     <div class="container">
         <h1>Barclay Search</h1>
@@ -89,44 +168,93 @@
             <input type="text" id="query" name="query" placeholder="Search the web..." required>
             <button type="submit">Search</button>
         </form>
+        <div id="total-results" class="total-results"></div>
         <div id="results"></div>
+        <div class="pagination">
+            <button id="prev" disabled>Previous</button>
+            <button id="next">Next</button>
+        </div>
+        <div id="pagination-info" class="pagination-info"></div>
     </div>
     <script>
         document.getElementById('search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const query = document.getElementById('query').value;
-    search(query);
-});
-
-function search(query) {
-    const apiKey = 'AIzaSyA8ZlsCeEOwwmL1JNo0uI6V_qWiSTFtR3U';
-    const searchEngineId = '8615a9c349f964fab';
-    const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${query}`;
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = '';
-            if (data.items) {
-                data.items.forEach(item => {
-                    const resultItem = document.createElement('div');
-                    resultItem.classList.add('result-item');
-                    resultItem.innerHTML = `
-                        <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
-                        <p>${item.snippet}</p>
-                    `;
-                    resultsContainer.appendChild(resultItem);
-                });
-            } else {
-                resultsContainer.innerHTML = '<p>No results found</p>';
+            e.preventDefault();
+            const query = document.getElementById('query').value;
+            if (query) {
+                window.history.pushState({}, '', `?query=${encodeURIComponent(query)}`);
+                search(query);
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
         });
-}
 
+        document.getElementById('prev').addEventListener('click', function() {
+            if (startIndex > 1) {
+                startIndex -= 10;
+                const query = new URLSearchParams(window.location.search).get('query');
+                if (query) search(query);
+            }
+        });
+
+        document.getElementById('next').addEventListener('click', function() {
+            startIndex += 10;
+            const query = new URLSearchParams(window.location.search).get('query');
+            if (query) search(query);
+        });
+
+        let startIndex = 1;
+
+        function search(query) {
+            const apiKey = 'AIzaSyA8ZlsCeEOwwmL1JNo0uI6V_qWiSTFtR3U';
+            const searchEngineId = '8615a9c349f964fab';
+            const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${query}&start=${startIndex}`;
+            
+            document.title = `Barclay Search - "${query}"`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsContainer = document.getElementById('results');
+                    const totalResultsElement = document.getElementById('total-results');
+                    const paginationInfoElement = document.getElementById('pagination-info');
+                    resultsContainer.innerHTML = '';
+                    if (data.items) {
+                        totalResultsElement.textContent = `Showing ${data.items.length} of ${data.searchInformation.totalResults} results`;
+                        data.items.forEach(item => {
+                            const resultItem = document.createElement('div');
+                            resultItem.classList.add('result-item');
+                            resultItem.innerHTML = `
+                                <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                                <p class="result-url">${item.link}</p>
+                                <p>${item.snippet}</p>
+                            `;
+                            resultsContainer.appendChild(resultItem);
+                        });
+
+                        const currentPage = Math.ceil(startIndex / 10);
+                        const totalPages = Math.ceil(data.searchInformation.totalResults / 10);
+                        paginationInfoElement.textContent = `Page ${currentPage} of ${totalPages}`;
+
+                        document.getElementById('prev').disabled = startIndex === 1;
+                        document.getElementById('next').disabled = startIndex + data.items.length > data.searchInformation.totalResults;
+                    } else {
+                        resultsContainer.innerHTML = '<p>No results found</p>';
+                        totalResultsElement.textContent = '';
+                        paginationInfoElement.textContent = '';
+                        document.getElementById('prev').disabled = true;
+                        document.getElementById('next').disabled = true;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        window.onload = function() {
+            const query = new URLSearchParams(window.location.search).get('query');
+            if (query) {
+                document.getElementById('query').value = query;
+                search(query);
+            }
+        };
     </script>
 </body>
 </html>
