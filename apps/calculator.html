@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/calc.png" sizes="30x30">
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/calc.png" sizes="600x600">
+    <title>Barclay Math Solver</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'DaTeX';
+        src: url(https://delivercdn.pages.dev/os/fonts/DaTeX_Main-Regular.ttf);
+    }
+
+    body {
+        font-family: 'DaTeX', Arial, sans-serif;
+        font-variant-ligatures: initial;
+        font-variant-ligatures: inherit;
+        font-variant-ligatures: contextual;
+        font-size: 18px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        font-weight: 400;
+    }
+
+    input {
+        font-family: 'DaTeX', Arial, sans-serif;
+        font-size: 18px;
+        font-variant-ligatures: initial;
+        font-variant-ligatures: inherit;
+        font-variant-ligatures: contextual;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        font-family: 'DaTeX', Arial, sans-serif;
+        font-size: 18px;
+        font-variant-ligatures: initial;
+        font-variant-ligatures: inherit;
+        font-variant-ligatures: contextual;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    #result {
+        font-family: 'DaTeX', Arial, sans-serif;
+        font-size: 18px;
+        font-variant-ligatures: initial;
+        font-variant-ligatures: inherit;
+        font-variant-ligatures: contextual;
+        margin-top: 20px;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>Math Solver</h1>
+        <input type="text" id="expression" placeholder="Enter math expression">
+        <button onclick="solve()">Solve</button>
+        <div id="result"></div>
+    </div>
+    <script src="https://delivercdn.pages.dev/os/scripts/mathjs/math.js"></script>
+</body>
+<script>
+    function solve() {
+        var expression = document.getElementById('expression').value;
+        try {
+            var result = math.evaluate(expression);
+            document.getElementById('result').innerHTML = "Result: " + result;
+        } catch (error) {
+            document.getElementById('result').innerHTML = "Error: " + error.message;
+        }
+    }
+
+    document.getElementById('expression').addEventListener('keypress', function(event) {
+        if (event.keyCode === 13) {
+            solve();
+        }
+    });
+</script>
+</html>

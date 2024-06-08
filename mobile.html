@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Web Desktop</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .desktop {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #4CAF50;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            box-sizing: border-box;
+            justify-content: center;
+            gap: 0px;
+            align-content: flex-start;
+            align-items: center;
+        }
+        .app {
+            width: 70px;
+            height: 70px;
+            margin: 10px 10px; /* Updated margin */
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            cursor: pointer;
+        }
+        .app img {
+            width: 40px;
+            height: 40px;
+        }
+        .app p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 0;
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .modal-header .close {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .modal-body {
+            flex: 1;
+            padding: 0;
+            overflow: hidden;
+        }
+        .modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        img {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+    
+</head>
+<body>
+
+<div class="desktop">
+    <div class="app" onclick="openApp('Audio Editor', 'https://webcomposer.pages.dev/', true)">
+        <img src="https://delivercdn.pages.dev/barclay/images/caesium/audio.png" alt="Audio Editor">
+        <p>Audio Editor</p>
+    </div>
+    <div class="app" onclick="openApp('Browser', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Browser">
+        <p>Browser</p>
+    </div>
+    <div class="app" onclick="openApp('Calendar', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Calendar">
+        <p>Calendar</p>
+    </div>
+    <div class="app" onclick="openApp('Camera', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Camera">
+        <p>Camera</p>
+    </div>
+    <div class="app" onclick="openApp('Canvas', 'https://www.dailymotion.com', true)">
+        <img src="https://delivercdn.pages.dev/barclay/images/caesium/canvas.png" alt="Canvas">
+        <p>Canvas</p>
+    </div>
+    <div class="app" onclick="openApp('Code Editor', 'https://htmstorm.pages.dev/', true)">
+        <img src="https://delivercdn.pages.dev/barclay/images/caesium/html.png" alt="Code Editor">
+        <p>Code Editor</p>
+    </div>
+    <div class="app" onclick="openApp('Drive', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Drive">
+        <p>Drive</p>
+    </div>
+    <div class="app" onclick="openApp('Explore', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Explore">
+        <p>Explore</p>
+    </div>
+    <div class="app" onclick="openApp('Files', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Files">
+        <p>Files</p>
+    </div>
+    <div class="app" onclick="openApp('Gallery', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Gallery">
+        <p>Gallery</p>
+    </div>
+    <div class="app" onclick="openApp('Mail', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Mail">
+        <p>Mail</p>
+    </div>
+    <div class="app" onclick="openApp('Notes', 'https://airglowos.pages.dev/apps/notes', true)">
+        <img src="https://delivercdn.pages.dev/barclay/images/caesium/text.png" alt="Notes">
+        <p>Notes</p>
+    </div>
+    <div class="app" onclick="openApp('Print', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Print">
+        <p>Print</p>
+    </div>
+    <div class="app" onclick="openApp('Scan', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Scan">
+        <p>Scan</p>
+    </div>
+    <div class="app" onclick="openApp('Screencast', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Screencast">
+        <p>Screencast</p>
+    </div>
+    <div class="app" onclick="openApp('Settings', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="Settings">
+        <p>Settings</p>
+    </div>
+    <div class="app" onclick="openApp('Terminal', 'https://airglowos.pages.dev/apps/terminal', true)">
+        <img src="https://delivercdn.pages.dev/barclay/images/caesium/terminal.png" alt="Terminal">
+        <p>Terminal</p>
+    </div>
+    <div class="app" onclick="openApp('Video Editor', 'https://openingnight.pages.dev', true)">
+        <img src="https://delivercdn.pages.dev/barclay/images/caesium/video.png" alt="Video Editor">
+        <p>Video Editor</p>
+    </div>
+    <div class="app" onclick="openApp('YouTube', 'https://www.dailymotion.com', true)">
+        <img src="https://via.placeholder.com/40" alt="YouTube">
+        <p>YouTube</p>
+    </div>
+
+    <div class="app" onclick="openApp('App 1', 'This is App 1 content.')">
+        <img src="https://via.placeholder.com/40" alt="App 1">
+        <p>App 1</p>
+    </div>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="app-title"></span>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body" id="app-content">
+            <!-- App content will be injected here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function openApp(appName, content, isIframe = false) {
+        document.getElementById('app-title').innerText = appName;
+        const appContent = document.getElementById('app-content');
+        appContent.innerHTML = '';
+        
+        if (isIframe) {
+            const iframe = document.createElement('iframe');
+            iframe.src = content;
+            appContent.appendChild(iframe);
+        } else {
+            appContent.innerText = content;
+        }
+        
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>

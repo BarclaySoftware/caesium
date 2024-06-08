@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/WebTerminal-Icon.png" sizes="30x30">
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/WebTerminal-Icon.png" sizes="600x600">
+
+    <title>Barclay WebDesktop (alpha v0.0.0.1)</title>
+    <style>
+        @font-face {
+            font-family: 'Barclay Sans';
+            src: url(https://delivercdn.pages.dev/barclay/fonts/BarclaySans.ttf);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Barclay Text';
+            src: url(https://delivercdn.pages.dev/barclay/fonts/BarclayText.ttf);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Barclay Sans Bold';
+            src: url(https://delivercdn.pages.dev/barclay/fonts/BarclaySans-Bold.ttf);
+            font-weight: 700;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Barclay Text', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 18px;
+        }
+
+        b {
+            font-family: 'Barclay Sans Bold';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 18px;
+        }
+
+        ::selection {
+            background-color: teal;
+            color: #ffffff;
+        }
+
+        ::-moz-selection {
+            background-color: teal;
+            color: #ffffff;
+        }
+
+        .desktop {
+            width: 100%;
+            height: calc(100%);
+            background: url('https://delivercdn.pages.dev/os/images/denver.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .taskbar {
+            background: black;
+            width: 100%;
+            height: 50px;
+            backdrop-filter: blur(10px);
+            color: #fff;
+            display: flex;
+            padding-top: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            box-sizing: border-box;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .taskbar::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .taskbar::-webkit-scrollbar-track {
+            background: #ececf2;
+        }
+
+        .taskbar::-webkit-scrollbar-thumb {
+            background-color: #8b8b97;
+            border-radius: 0px;
+            border: 3px solid #8b8b97;
+        }
+
+        .task {
+            align-items: center;
+            margin-left: 10px;
+            margin-right: 10px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+
+        .window {
+            width: 300px;
+            height: 200px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            resize: both;
+            min-width: 150px;
+            min-height: 100px;
+            border-radius: 0px;
+            z-index: 1;
+        }
+
+        .window-header {
+            background: #0078d7;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .window-body {
+            padding: 10px;
+            flex-grow: 1;
+            overflow: auto;
+        }
+
+        .window-body-center {
+            text-align: center;
+            padding: 10px;
+            flex-grow: 1;
+            overflow: auto;
+        }
+
+        .close-btn {
+            cursor: pointer;
+        }
+
+        .iframe-container {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .iframe-container iframe {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        ::-webkit-scrollbar {
+            background: #ececf2;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #ececf2;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #8b8b97;
+            border-radius: 0px;
+            border: 3px solid #8b8b97;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #8b8b97;
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+            background-color: #8b8b97;
+        }
+
+        img {
+            width: 100px;
+        }
+
+        .taskIcon {
+            height: 40px;
+            width: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="desktop">
+        <div class="window" id="welcome">
+            <div class="window-header">
+                Welcome to Barclay WebDesktop
+                <span class="close-btn" onclick="closeWindow('welcome')" title="Close">&times;</span>
+            </div>
+
+            <div class="window-body">
+                <p>Welcome to Barclay WebDesktop, your personal web desktop environment. Explore the features and enjoy!
+                </p>
+            </div>
+        </div>
+
+        <div class="window" id="help">
+            <div class="window-header">
+                Barclay WebDesktop Help
+                <span class="close-btn" onclick="closeWindow('help')" title="Close">&times;</span>
+            </div>
+
+            <div class="window-body">
+                Help docs will be here soon. Please come back later!
+            </div>
+        </div>
+
+        <div class="window" id="about">
+            <div class="window-header">
+                About Barclay WebDesktop
+                <span class="close-btn" onclick="closeWindow('about')" title="Close">&times;</span>
+            </div>
+            
+            <div class="window-body-center">
+                <img src="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" alt="Barclay WebDesktop">
+                <br>
+                <b>Barclay WebDesktop</b>
+                <p>Barclay WebDesktop is an open-source web desktop created by Barclay Software. All applications in
+                    Barclay WebDesktop are free and open source.</p>
+            </div>
+        </div>
+
+        <div class="window" id="calc">
+            <div class="window-header">
+                Calculator
+                <span class="close-btn" onclick="closeWindow('calc')" title="Minimize">–</span>
+            </div>
+            <div class="window-body iframe-container">
+                <iframe src="https://airglowos.pages.dev/apps/calculator"></iframe>
+            </div>
+        </div>
+
+        <div class="window" id="notes">
+            <div class="window-header">
+                Notes
+                <span class="close-btn" onclick="closeWindow('notes')" title="Minimize">–</span>
+            </div>
+            <div class="window-body iframe-container">
+                <iframe src="https://airglowos.pages.dev/apps/notes"></iframe>
+            </div>
+        </div>
+
+        <div class="window" id="search">
+            <div class="window-header">
+                Searcher
+                <span class="close-btn" onclick="closeWindow('search')" title="Minimize">–</span>
+            </div>
+            <div class="window-body iframe-container">
+                <iframe src="https://airglowos.pages.dev/apps/search"></iframe>
+            </div>
+        </div>
+
+        <div class="window" id="terminal">
+            <div class="window-header">
+                Terminal
+                <span class="close-btn" onclick="closeWindow('terminal')" title="Minimize">–</span>
+            </div>
+            <div class="window-body iframe-container">
+                <iframe src="https://airglowos.pages.dev/apps/terminal"></iframe>
+            </div>
+        </div>
+
+        <div class="window" id="on">
+            <div class="window-header">
+                OpeningNight
+                <span class="close-btn" onclick="closeWindow('on')" title="Minimize">–</span>
+            </div>
+            <div class="window-body iframe-container">
+                <iframe src="https://openingnight.pages.dev/"></iframe>
+            </div>
+        </div>
+
+        <div class="window" id="webcomp">
+            <div class="window-header">
+                WebComposer
+                <span class="close-btn" onclick="closeWindow('webcomp')" title="Minimize">–</span>
+            </div>
+            <div class="window-body iframe-container">
+                <iframe src="https://webcomposer.pages.dev/"></iframe>
+            </div>
+        </div>
+
+        <div class="window" id="htmstorm">
+            <div class="window-header">
+                HtmStorm
+                <span class="close-btn" onclick="closeWindow('htmstorm')" title="Minimize">–</span>
+            </div>
+            <div class="window-body iframe-container">
+                <iframe src="https://htmstorm.pages.dev/"></iframe>
+            </div>
+        </div>
+
+        <div class="window" id="wpaint">
+            <div class="window-header">
+                WebPainter
+                <span class="close-btn" onclick="closeWindow('wpaint')" title="Minimize">–</span>
+            </div>
+            <div class="window-body iframe-container">
+                <iframe src="https://webpainter.pages.dev/"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="task" onclick="openWindow('welcome')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" alt="Welcome">
+        </div>
+        <div class="task" onclick="openWindow('help')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/help.png" alt="Help">
+        </div>
+        <div class="task" onclick="openWindow('about')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/about.png" alt="About">
+        </div>
+        <div class="task" onclick="openWindow('calc')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" alt="Calculator">
+        </div>
+        <div class="task" onclick="openWindow('notes')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/text.png" alt="Notes">
+        </div>
+        <div class="task" onclick="openWindow('search')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" alt="search">
+        </div>
+        <div class="task" onclick="openWindow('terminal')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/terminal.png" alt="Terminal">
+        </div>
+        <div class="task" onclick="openWindow('on')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/video.png" alt="Video Editor">
+        </div>
+        <div class="task" onclick="openWindow('webcomp')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/audio.png" alt="Audio Editor">
+        </div>
+        <div class="task" onclick="openWindow('htmstorm')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/html.png" alt="HtmStorm">
+        </div>
+        <div class="task" onclick="openWindow('wpaint')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/photo.png" alt="Photos">
+        </div>
+    </div>
+
+    <script>
+        let highestZIndex = 1;
+
+        function openWindow(appId) {
+            const windowElement = document.getElementById(appId);
+            windowElement.style.display = 'flex';
+            bringToFront(windowElement);
+        }
+
+        function closeWindow(appId) {
+            document.getElementById(appId).style.display = 'none';
+        }
+
+        function bringToFront(element) {
+            highestZIndex++;
+            element.style.zIndex = highestZIndex;
+        }
+
+        document.addEventListener('mousedown', function (e) {
+            if (e.target.classList.contains('window-header')) {
+                const windowElement = e.target.parentElement;
+                bringToFront(windowElement);
+                draggedElement = windowElement;
+                let offsetX = e.clientX - draggedElement.offsetLeft;
+                let offsetY = e.clientY - draggedElement.offsetTop;
+
+                function mouseMoveHandler(e) {
+                    let newLeft = e.clientX - offsetX;
+                    let newTop = e.clientY - offsetY;
+
+                    newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - draggedElement.offsetWidth));
+                    newTop = Math.max(0, Math.min(newTop, window.innerHeight - draggedElement.offsetHeight));
+
+                    draggedElement.style.left = `${newLeft}px`;
+                    draggedElement.style.top = `${newTop}px`;
+                }
+
+                function mouseUpHandler() {
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                }
+
+                document.addEventListener('mousemove', mouseMoveHandler);
+                document.addEventListener('mouseup', mouseUpHandler);
+            } else if (e.target.classList.contains('window')) {
+                bringToFront(e.target);
+            }
+        });
+
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+
+        window.onload = function () {
+            openWindow('welcome');
+        }
+    </script>
+</body>
+
+</html>

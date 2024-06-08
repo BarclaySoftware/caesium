@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/search.png" sizes="30x30">
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/search.png" sizes="600x600">
+    <title>Barclay Search</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    #search-form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    #search-form input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #search-form button {
+        padding: 10px 20px;
+        border: none;
+        background: #333;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    #search-form button:hover {
+        background: #555;
+    }
+
+    #results {
+        margin-top: 20px;
+    }
+
+    .result-item {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .result-item h3 {
+        margin: 0;
+    }
+
+    .result-item a {
+        color: #0066cc;
+        text-decoration: none;
+    }
+
+    .result-item a:hover {
+        text-decoration: underline;
+    }
+
+    .result-item p {
+        margin: 10px 0 0;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>Barclay Search</h1>
+        <form id="search-form">
+            <input type="text" id="query" name="query" placeholder="Search the web..." required>
+            <button type="submit">Search</button>
+        </form>
+        <div id="results"></div>
+    </div>
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const query = document.getElementById('query').value;
+    search(query);
+});
+
+function search(query) {
+    const apiKey = 'AIzaSyA8ZlsCeEOwwmL1JNo0uI6V_qWiSTFtR3U';
+    const searchEngineId = '8615a9c349f964fab';
+    const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${query}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+            if (data.items) {
+                data.items.forEach(item => {
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+                    resultItem.innerHTML = `
+                        <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                        <p>${item.snippet}</p>
+                    `;
+                    resultsContainer.appendChild(resultItem);
+                });
+            } else {
+                resultsContainer.innerHTML = '<p>No results found</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+    </script>
+</body>
+</html>

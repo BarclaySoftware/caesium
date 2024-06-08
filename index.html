@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" sizes="30x30">
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" sizes="600x600">
+    <title>Barclay Caesium Identifier Central</title>
+    <script>
+    function detectDevice() {
+        var screenWidth = window.innerWidth;
+        if (screenWidth < 768) {
+        window.location.replace("mobile.html");
+        } else {
+        window.location.replace("desktop.html");
+        }
+    }
+
+    window.onload = detectDevice;
+    </script>
+</head>
+<body>
+  <p>Locating the best version of Caesium for your device...</p>
+</body>
+</html>
