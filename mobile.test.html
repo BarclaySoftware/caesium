@@ -39,6 +39,18 @@
             align-items: center;
         }
 
+        .time-container {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
         .app {
             width: 70px;
             height: 70px;
@@ -134,6 +146,9 @@
 <body>
 
 <div class="desktop">
+    <div class="time-container" id="time">
+        <!-- Time will be displayed here -->
+    </div>
     <div class="app" onclick="openApp('Search', 'https://caesium.pages.dev/apps/search', true)">
         <img class="appIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/search.png" alt="Search">
         <p>Search</p>
@@ -260,6 +275,18 @@
             modal.style.display = 'none';
         }
     }
+
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        document.getElementById('time').innerText = timeString;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime(); // Initial call to display time immediately
 </script>
 </body>
 </html>

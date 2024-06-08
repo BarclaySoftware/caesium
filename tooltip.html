@@ -194,6 +194,76 @@
             height: 40px;
             width: 40px;
         }
+
+        /* Styling for App List */
+        .app-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .app-list-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .app-list-item img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        title {
+            background-color: #0078d7;
+            color: wheat;
+        }
+
+        .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+        visibility: visible;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-title {
+            position: absolute;
+            bottom: 10px; /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 14px;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.3s ease;
+        }
+
+        .image-container:hover .image-title {
+            opacity: 1; /* Show on hover */
+        }
     </style>
 </head>
 
@@ -335,110 +405,175 @@
             <div class="window-body iframe-container">
                 <iframe src="https://caesium.pages.dev/apps/canvas"></iframe>
             </div>
+
+            <div class="window" id="paint">
+                <div class="window-header">
+                    miniPaint
+                    <span class="close-btn" onclick="closeWindow('paint')" title="Minimize">–</span>
+                </div>
+                <div class="window-body iframe-container">
+                    <iframe src="https://viliusle.github.io/miniPaint/"></iframe>
+                </div>
+        </div>
+
+        <div class="window" id="launcher">
+            <div class="window-header">
+                App List
+                <span class="close-btn" onclick="closeWindow('launcher')" title="Close">&times;</span>
+            </div>
+            <div class="window-body">
+                <ul class="app-list">
+                    <li class="app-list-item" onclick="openWindow('welcome')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" alt="Welcome">
+                        <span>Welcome</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('search')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/search.png" alt="Search">
+                        <span>Search</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('browser')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/browser.png" alt="Browser">
+                        <span>Browser</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('calculator')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/calc.png" alt="Calculator">
+                        <span>Calculator</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('notes')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/text.png" alt="Notes">
+                        <span>Notes</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('canvas')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/canvas.png" alt="Canvas">
+                        <span>Canvas</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('terminal')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/terminal.png" alt="Terminal">
+                        <span>Terminal</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('video')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/video.png" alt="Video Editor">
+                        <span>Video Editor</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('audio')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/audio.png" alt="Audio Editor">
+                        <span>Audio Editor</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('code')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/html.png" alt="Code Editor">
+                        <span>Code Editor</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('photo')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/photo.png" alt="Photo Editor">
+                        <span>Photo Editor</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('help')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/help.png" alt="Help">
+                        <span>Help</span>
+                    </li>
+                    <li class="app-list-item" onclick="openWindow('about')">
+                        <img src="https://delivercdn.pages.dev/barclay/images/caesium/about.png" alt="About">
+                        <span>About</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="taskbar">
+        <div class="task" onclick="openWindow('launcher')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/launcher.png" title="Launcher">
+        </div>
+
         <div class="task" onclick="openWindow('welcome')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/welcome.png" alt="Welcome">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/welcome.png" title="Welcome">
         </div>
 
         <div class="task" onclick="openWindow('search')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/search.png" alt="search">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/search.png" title="Search">
         </div>
 
         <div class="task" onclick="openWindow('browser')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/browser.png" alt="Photos">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/browser.png" title="Browser">
         </div>
 
         <div class="task" onclick="openWindow('calculator')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/calc.png" alt="Calculator">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/calculator.png" title="Calculator">
         </div>
 
         <div class="task" onclick="openWindow('notes')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/text.png" alt="Notes">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/dotlin.png" title="Notes">
         </div>
 
         <div class="task" onclick="openWindow('canvas')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/canvas.png" alt="Photos">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/canvas.png" title="Canvas">
         </div>
 
         <div class="task" onclick="openWindow('terminal')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/terminal.png" alt="Terminal">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/terminal.png" title="Terminal">
         </div>
 
         <div class="task" onclick="openWindow('video')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/video.png" alt="Video Editor">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/openingnight.png" title="OpeningNight">
         </div>
 
         <div class="task" onclick="openWindow('audio')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/audio.png" alt="Audio Editor">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/webcomposer.png" title="WebComposer">
         </div>
 
         <div class="task" onclick="openWindow('code')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/html.png" alt="HtmStorm">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/htmstorm.png" title="HtmStorm">
         </div>
 
-        <div class="task" onclick="openWindow('photo')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/photo.png" alt="Photos">
+        <div class="task" onclick="openWindow('paint')">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/minipaint.png" title="MiniPaint">
         </div>
 
         <div class="task" onclick="openWindow('help')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/help.png" alt="Help">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/help.png" title="Help">
         </div>
         
         <div class="task" onclick="openWindow('about')">
-            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/about.png" alt="About">
+            <img class="taskIcon" src="https://delivercdn.pages.dev/barclay/images/caesium/apps/about.png" title="About">
         </div>
+
     </div>
 
     <script>
         let highestZIndex = 1;
 
-        function openWindow(appId) {
-            const windowElement = document.getElementById(appId);
+        function openWindow(windowId) {
+            const windowElement = document.getElementById(windowId);
             windowElement.style.display = 'flex';
-            bringToFront(windowElement);
+            windowElement.style.zIndex = highestZIndex++;
         }
 
-        function closeWindow(appId) {
-            document.getElementById(appId).style.display = 'none';
+        function closeWindow(windowId) {
+            document.getElementById(windowId).style.display = 'none';
         }
 
-        function bringToFront(element) {
-            highestZIndex++;
-            element.style.zIndex = highestZIndex;
-        }
+        document.querySelectorAll('.window').forEach(windowElement => {
+            const header = windowElement.querySelector('.window-header');
+            let isDragging = false;
+            let offsetX, offsetY;
 
-        document.addEventListener('mousedown', function (e) {
-            if (e.target.classList.contains('window-header')) {
-                const windowElement = e.target.parentElement;
-                bringToFront(windowElement);
-                draggedElement = windowElement;
-                let offsetX = e.clientX - draggedElement.offsetLeft;
-                let offsetY = e.clientY - draggedElement.offsetTop;
+            header.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - windowElement.offsetLeft;
+                offsetY = e.clientY - windowElement.offsetTop;
+                windowElement.style.zIndex = highestZIndex++;
+            });
 
-                function mouseMoveHandler(e) {
-                    let newLeft = e.clientX - offsetX;
-                    let newTop = e.clientY - offsetY;
-
-                    newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - draggedElement.offsetWidth));
-                    newTop = Math.max(0, Math.min(newTop, window.innerHeight - draggedElement.offsetHeight));
-
-                    draggedElement.style.left = `${newLeft}px`;
-                    draggedElement.style.top = `${newTop}px`;
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    windowElement.style.left = `${e.clientX - offsetX}px`;
+                    windowElement.style.top = `${e.clientY - offsetY}px`;
                 }
+            });
 
-                function mouseUpHandler() {
-                    document.removeEventListener('mousemove', mouseMoveHandler);
-                    document.removeEventListener('mouseup', mouseUpHandler);
-                }
-
-                document.addEventListener('mousemove', mouseMoveHandler);
-                document.addEventListener('mouseup', mouseUpHandler);
-            } else if (e.target.classList.contains('window')) {
-                bringToFront(e.target);
-            }
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
         });
 
         document.addEventListener('contextmenu', function (event) {
@@ -450,5 +585,4 @@
         }
     </script>
 </body>
-
 </html>

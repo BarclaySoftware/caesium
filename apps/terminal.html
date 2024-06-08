@@ -5,20 +5,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/terminal.png" sizes="30x30">
-<link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/terminal.png" sizes="600x600">
+<link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/apps/terminal.png" sizes="30x30">
+<link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/apps/terminal.png" sizes="600x600">
 
 <title>Barclay WebTerminal (v1.6.4.4)</title>
 </head>
 
 <style>
     @font-face {
-        font-family: 'Barclay WebTerminal';
-        src: url(https://delivercdn.pages.dev/barclay/fonts/BarclayWebTerminal.ttf);
+        font-family: 'mono';
+        src: url(https://delivercdn.pages.dev/barclay/fonts/woscore/woscoremono.ttf);
+    }
+
+    @font-face {
+        font-family: 'mono bold';
+        src: url(https://delivercdn.pages.dev/barclay/fonts/woscore/woscoremono-bold.ttf);
     }
 
     html, body {
-        font-family: 'Barclay WebTerminal';
+        font-family: 'mono';
         font-size: 20px;
         color: #cccccc;
         -webkit-font-smoothing: antialiased;
@@ -31,7 +36,7 @@
     }
     
     .user-text {
-        font-family: 'Barclay WebTerminal';
+        font-family: 'mono bold';
         color: #13a10e;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -39,7 +44,7 @@
     }
 
     .folder-text {
-        font-family: 'Barclay WebTerminal';
+        font-family: 'mono bold';
         color: #3a96dd;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -47,7 +52,7 @@
     }
 
     .normal-text {
-        font-family: 'Barclay WebTerminal';
+        font-family: 'mono';
         color: #cccccc;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -55,7 +60,7 @@
     }
 
     .input-field {
-        font-family: 'Barclay WebTerminal';
+        font-family: 'mono';
         font-size: 20px;
         color: #cccccc;
         caret-color: #cccccc;

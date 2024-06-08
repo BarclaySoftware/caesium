@@ -3,82 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/canvas.png" sizes="30x30">
-    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/canvas.png" sizes="600x600">
-    <title>Barclay Canvas</title>
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/apps/canvas.png" sizes="30x30">
+    <link rel="icon" type="image/png" href="https://delivercdn.pages.dev/barclay/images/caesium/apps/canvas.png" sizes="600x600">
+    <title>Web Desktop Drawing App</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
             background-color: #f0f0f0;
         }
-        canvas {
-            border: 1px solid #000;
-            cursor: crosshair;
+        .container {
+            display: flex;
+            align-items: center;
         }
         .controls {
-            margin-bottom: 10px;
+            margin-right: 20px;
         }
-        .controls label, .controls select, .controls input {
-            margin: 0 5px;
+        #drawingCanvas {
+            border: 1px solid #ccc;
+            background-color: white;
         }
     </style>
 </head>
 <body>
-    <div class="controls">
-        <label for="color">Color:</label>
-        <input type="color" id="color" value="#000000">
-        
-        <label for="size">Size:</label>
-        <input type="range" id="size" min="1" max="50" value="5">
-        
-        <button id="save">Save</button>
+    <div class="container">
+        <div class="controls">
+            <label for="colorPicker">Color:</label>
+            <input type="color" id="colorPicker" value="#000000"><br><br>
+            
+            <label for="strokeWidth">Stroke Width:</label>
+            <input type="range" id="strokeWidth" min="1" max="10" value="2"><br><br>
+            
+            <button onclick="saveDrawing()">Save Drawing</button>
+        </div>
+
+        <canvas id="drawingCanvas" width="800" height="600"></canvas>
     </div>
-    <canvas id="canvas" width="800" height="600"></canvas>
 
     <script>
-        const canvas = document.getElementById('canvas');
+        const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
-        let drawing = false;
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let color = '#000000';
+        let strokeWidth = 2;
 
         canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', endDrawing);
+        canvas.addEventListener('mouseout', endDrawing);
+
+        document.getElementById('colorPicker').addEventListener('input', updateColor);
+        document.getElementById('strokeWidth').addEventListener('input', updateStrokeWidth);
 
         function startDrawing(e) {
-            drawing = true;
-            draw(e);
-        }
-
-        function stopDrawing() {
-            drawing = false;
-            ctx.beginPath();
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
         }
 
         function draw(e) {
-            if (!drawing) return;
-
-            ctx.lineWidth = document.getElementById('size').value;
+            if (!isDrawing) return;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = strokeWidth;
             ctx.lineCap = 'round';
-            ctx.strokeStyle = document.getElementById('color').value;
 
-            ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
-            ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+
+            [lastX, lastY] = [e.offsetX, e.offsetY];
         }
 
-        document.getElementById('save').addEventListener('click', () => {
+        function endDrawing() {
+            isDrawing = false;
+        }
+
+        function updateColor(e) {
+            color = e.target.value;
+        }
+
+        function updateStrokeWidth(e) {
+            strokeWidth = e.target.value;
+        }
+
+        function saveDrawing() {
+            const dataUrl = canvas.toDataURL();
             const link = document.createElement('a');
+            link.href = dataUrl;
             link.download = 'drawing.png';
-            link.href = canvas.toDataURL();
             link.click();
-        });
+        }
     </script>
 </body>
 </html>
